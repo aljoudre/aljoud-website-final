@@ -1,0 +1,43 @@
+:root {
+    --color-primary: #005B4E;
+    --color-background: #F5F5F5;
+    --color-text: #222222;
+}
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+.text-primary { color: var(--color-primary); }
+.bg-primary { background-color: var(--color-primary); }
+
+.section {
+    padding: 8rem 0;
+}
+
+/* Gallery scroll snap container */
+.scroll-container {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* For Firefox */
+}
+.scroll-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+}
+.scroll-item {
+    scroll-snap-align: center;
+}
+
+/* Updated dot-indicator for a rice-like shape */
+.dot-indicator {
+    width: 1.5rem;
+    height: 0.25rem;
+    border-radius: 0.25rem;
+    background-color: #d1d5db; /* A light gray */
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dot-indicator.active {
+    background-color: #005B4E;
+}

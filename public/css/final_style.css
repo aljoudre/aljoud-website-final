@@ -1,0 +1,332 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+body {
+    font-family: 'Cairo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #f8f7f3;
+    color: #111111;
+    overflow-x: hidden;
+}
+
+section {
+    min-height: auto;
+    scroll-snap-align: start;
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+section#home {
+    min-height: 100vh;
+}
+
+section:not(#home) {
+    padding-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    section#home {
+        min-height: 100vh;
+    }
+    
+    section:not(#home) {
+        padding-bottom: 3rem;
+    }
+}
+
+.nav-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-container.scrolled {
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.nav-container.scrolled .nav-content {
+    color: #000;
+}
+
+.nav-container.scrolled .logo {
+    color: #005A58;
+}
+
+.nav-container.scrolled .burger span {
+    background: #000;
+}
+
+.nav-content {
+    background: #005A58;
+    color: white;
+    transition: all 0.4s;
+}
+
+.nav-container.scrolled .nav-content {
+    background: white;
+}
+
+.navbar-transition {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.navbar-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+.navbar-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    height: 100vh;
+    width: 320px;
+    background: #005A58;
+    z-index: 2000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2rem;
+    box-shadow: -5px 0 30px rgba(0,0,0,0.3);
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.burger {
+    cursor: pointer;
+    width: 28px;
+    height: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.burger span {
+    width: 100%;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.hero-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.hero-bg img, .hero-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 1s ease-in-out;
+}
+
+.about-header {
+    height: 12vh;
+    min-height: 80px;
+    max-height: 120px;
+    display: flex;
+    position: relative;
+}
+
+@media (max-width: 768px) {
+    .about-header {
+        height: 10vh;
+        min-height: 60px;
+        max-height: 100px;
+    }
+}
+
+.about-tab {
+    width: 33.333%;
+    background: #005A58;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+}
+
+.about-tab h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.about-rest {
+    width: 66.667%;
+    background: #f8f7f3;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 1rem 2rem;
+    text-align: center;
+    transition: all 0.4s;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 90, 88, 0.15);
+    border-color: #005A58;
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #005A58, #005A58);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.project-card {
+    position: relative;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, z-index 0s;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    will-change: transform;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 90, 88, 0.25);
+    z-index: 5;
+}
+
+.project-tab-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 80px;
+    background: #005A58;
+    clip-path: polygon(0 0, 100% 0, 70% 100%, 0 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 8px 10px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.15);
+}
+
+.project-tab-bottom {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 80px;
+    background: #005A58;
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 8px 10px;
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+    box-shadow: 0 -8px 16px rgba(0,0,0,0.25);
+    border: 1px solid rgba(0,0,0,0.15);
+}
+
+footer {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .about-tab h2 {
+        font-size: 1.5rem;
+    }
+    
+    .nav-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .service-card {
+        padding: 1rem 1.5rem;
+    }
+    
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .project-tab-top,
+    .project-tab-bottom {
+        width: 80px;
+        height: 60px;
+        font-size: 0.875rem;
+        padding: 6px 8px;
+    }
+    
+    footer {
+        min-height: auto;
+        padding: 3rem 0;
+    }
+    
+    html {
+        scroll-snap-type: none;
+    }
+    
+    section {
+        scroll-snap-align: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-bg {
+        opacity: 0.9;
+    }
+    
+    .nav-content {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+}

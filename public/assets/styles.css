@@ -1,0 +1,204 @@
+        :root {
+            --color-primary: #005B4E;
+            --color-background: #F5F5F5;
+            --color-text: #222222;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--color-text);
+            background-color: var(--color-background);
+            overflow-x: hidden;
+        }
+
+        .text-primary {
+            color: var(--color-primary);
+        }
+
+        .bg-primary {
+            background-color: var(--color-primary);
+        }
+
+        .text-text {
+            color: var(--color-text);
+        }
+
+        /* Full viewport sections with snap scrolling */
+        .full-section {
+            height: 100vh;
+            width: 100vw;
+            scroll-snap-align: start;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .snap-container {
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            height: 100vh;
+            scroll-behavior: smooth;
+        }
+
+        /* Styles for the video background */
+        #hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Mobile sidebar animation */
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        /* Navigation button styles */
+        .nav-button {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-primary);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 91, 78, 0.3);
+        }
+
+        .nav-button:hover {
+            background: #00382f;
+            transform: translateX(-50%) translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 91, 78, 0.4);
+        }
+
+        /* --- DARK THEME --- */
+        body.dark {
+            background-color: #222222;
+            color: #F5F5F5;
+        }
+
+        body.dark .text-primary {
+            color: #00bfae !important;
+        }
+
+        body.dark .bg-primary {
+            background-color: #005B4E !important;
+        }
+
+        body.dark .text-text {
+            color: #F5F5F5 !important;
+        }
+
+        body.dark .bg-white {
+            background-color: #222222 !important;
+        }
+
+        body.dark .text-white {
+            color: #F5F5F5 !important;
+        }
+
+        body.dark .shadow-xl {
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.7) !important;
+        }
+
+        body.dark .bg-black {
+            background-color: #222222 !important;
+        }
+
+        body.dark .hover\:text-primary:hover {
+            color: #00bfae !important;
+        }
+
+        body.dark .hover\:underline:hover {
+            text-decoration: underline;
+        }
+
+        body.dark .border {
+            border-color: #444 !important;
+        }
+
+        body.dark .bg-opacity-30 {
+            background-color: rgba(34, 34, 34, 0.7) !important;
+        }
+
+        body.dark .rounded-lg {
+            border-radius: 0.5rem;
+        }
+
+        body.dark .bg-primary {
+            background-color: #005B4E !important;
+        }
+
+        body.dark .text-primary {
+            color: #00bfae !important;
+        }
+
+        body.dark .text-text {
+            color: #F5F5F5 !important;
+        }
+
+        body.dark .bg-opacity-30 {
+            background-color: rgba(34, 34, 34, 0.7) !important;
+        }
+
+        body.dark .bg-opacity-30 {
+            background-color: rgba(34, 34, 34, 0.7) !important;
+        }
+
+        body.dark .bg-opacity-30 {
+            background-color: rgba(34, 34, 34, 0.7) !important;
+        }
+
+        /* End dark theme */
+
+        /* Navbar hide/show animation */
+        /* .navbar-transition {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .navbar-hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .navbar-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        } */
+
+        /* Navbar hide/show animation */
+.navbar-transition {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.navbar-visible {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
