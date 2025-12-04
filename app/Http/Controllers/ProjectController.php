@@ -32,6 +32,7 @@ class ProjectController extends Controller
             ? (isset($uiTexts['category.lands_auctions']) ? $uiTexts['category.lands_auctions']->translate() : 'الأراضي والمزادات')
             : (isset($uiTexts['category.residential_commercial']) ? $uiTexts['category.residential_commercial']->translate() : 'الأبراج السكنية والتجارية');
         
+            // return $projects->first();
         return view('project.category', [
             'projects' => $projects,
             'category' => $category,

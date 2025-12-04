@@ -79,8 +79,7 @@
                         <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg">
                             <!-- Image -->
                             <div class="relative h-64 overflow-hidden">
-                                {{-- <img src="{{ $projectImage }}" alt="{{ $project->translate('name') }}" class="w-full h-full object-cover"> --}}
-                                <img src="{{ $project->project_image }}" alt="{{ $project->translate('name') }}" class="w-full h-full object-cover">
+                                <img src="{{ $projectImage }}" alt="{{ $project->translate('name') }}" class="w-full h-full object-cover">
                                 <div class="absolute top-4 left-4">
                                     <span class="text-white text-xs font-semibold px-3 py-1 rounded-full" style="background-color: {{ $project->status_color ?? '#6B7280' }};">
                                         {{ $project->translate('status') }}
@@ -92,7 +91,11 @@
                             <div class="p-6">
                                 
                                 <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ $project->translate('name') }}</h3>
-                    
+                                <p class="text-s font-bold text-gray-900 mb-2">{{ $projectImage }}</p>
+                                <p class="text-s font-bold text-gray-900 mb-2">{{ $project->getFirstMedia('project_image') }}</p>
+
+
+
                                 <div class="flex items-center text-gray-600 mb-4">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

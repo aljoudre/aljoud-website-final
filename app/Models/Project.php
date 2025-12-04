@@ -105,4 +105,10 @@ class Project extends Model implements HasMedia
         $this->addMediaCollection('marker_logo')
             ->singleFile();
     }
+
+    public function getProjectImageAttribute()
+    {
+        $media = $this->getFirstMedia('project_image');
+        return $media ? $media->getUrl() : asset('assets/images/logo.png');
+    }
 }
