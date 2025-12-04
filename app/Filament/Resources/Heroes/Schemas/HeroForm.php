@@ -12,6 +12,7 @@ use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use App\Models\Translation;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 
 class HeroForm
 {
@@ -55,8 +56,23 @@ class HeroForm
                             ->label('Media URL')
                             ->url()
                             ->helperText('Enter the URL for hero background image or video'),
+                            // checkbox to choose if the media is an image or a video
+                            Toggle::make('is_video')
+                                ->label('Is Video')
+                                ->default(false),
+                            // saptie media library file upload for video
+                            SpatieMediaLibraryFileUpload::make('video')
+                            ->collection('video')
+                            ->maxFiles(1)
+                            ->acceptedFileTypes(['video/*'])
+                            ->maxSize(102400) // 100 MB in KB
+                            ->rules(['required', 'file', 'max:102400']) // Laravel validation
+                            ->helperText('Upload a video for the hero section'),
+
                     ])
                     ->collapsible(),
+
+
             ]);
     }
 }

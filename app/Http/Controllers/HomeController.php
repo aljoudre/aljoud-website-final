@@ -11,7 +11,9 @@ use App\Models\Map;
 use App\Models\News;
 use App\Models\Footer;
 use App\Models\Privacy;
-
+use App\Models\Translation;
+use App\Models\UiText;
+use App\Models\ContactSetting;
 class HomeController extends Controller
 {
 
@@ -52,15 +54,15 @@ class HomeController extends Controller
             ->first();
         
         $services = Service::all();
-        $translations = \App\Models\Translation::all();
+        $translations = Translation::all();
         $currentLocale = app()->getLocale();
-        $currentLanguage = \App\Models\Translation::where('value', $currentLocale)->first();
+        $currentLanguage = Translation::where('value', $currentLocale)->first();
         
         // Load all UI texts for efficiency
-        $uiTexts = \App\Models\UiText::all()->keyBy('key');
+        $uiTexts = UiText::all()->keyBy('key');
         
         // Load contact settings (first record only)
-        $contactSettings = \App\Models\ContactSetting::first();
+        $contactSettings = ContactSetting::first();
         
         return view('home.final', [
             'hero' => $hero,
@@ -78,15 +80,15 @@ class HomeController extends Controller
     public function privacy()
     {
         $privacy = Privacy::first();
-        $translations = \App\Models\Translation::all();
+        $translations = Translation::all();
         $currentLocale = app()->getLocale();
-        $currentLanguage = \App\Models\Translation::where('value', $currentLocale)->first();
+        $currentLanguage = Translation::where('value', $currentLocale)->first();
         
         // Load all UI texts for navbar and footer
-        $uiTexts = \App\Models\UiText::all()->keyBy('key');
+        $uiTexts = UiText::all()->keyBy('key');
         
         // Load contact settings for navbar and footer
-        $contactSettings = \App\Models\ContactSetting::first();
+        $contactSettings = ContactSetting::first();
         
         return view('privacy', [
             'privacy' => $privacy,

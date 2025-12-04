@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\Localization;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
@@ -27,3 +28,6 @@ Route::get('/set-locale/{locale}', function ($locale) {
 // Project 
 Route::get('/projects/category/{category}', [ProjectController::class, 'showCategory'])->middleware(Localization::class)->name('projects.category');
 Route::get('/projects/{project}', [ProjectController::class, 'show'])->middleware(Localization::class)->name('projects.show');
+
+// Sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

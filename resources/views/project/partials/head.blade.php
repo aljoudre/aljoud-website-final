@@ -3,7 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $project->translate('name') }} - Aljoud Real Estate</title>
+    
+    @php
+        $projectImage = asset('assets/images/logo.png');
+        try {
+            $imageMedia = $project->getFirstMedia('project_image');
+            if ($imageMedia) {
+                $projectImage = $imageMedia->getUrl();
+            }
+        } catch (\Exception $e) {}
+        
+        $projectDescription = $project->translate('description');
+        if (empty($projectDescription)) {
+            $projectDescription = $project->translate('subtitle');
+        }
+        if (empty($projectDescription)) {
+            $projectDescription = 'مشروع عقاري متميز من شركة الجود للتطوير والاستثمار العقاري';
+        }
+        
+        $seoData = [
+            'title' => $project->translate('name') . ' - Aljoud Real Estate',
+            'description' => strip_tags($projectDescription),
+            'keywords' => $project->translate('name') . '، ' . $project->translate('location') . '، ' . $project->translate('type') . '، عقارات، استثمار عقاري',
+            'image' => $projectImage,
+            'url' => route('projects.show', $project->uuid),
+            'type' => 'article',
+        ];
+        
+        $structuredData = [
+            '@context' => 'https://schema.org',
+            '@type' => 'RealEstateAgent',
+            'name' => $project->translate('name'),
+            'description' => strip_tags($projectDescription),
+            'image' => $projectImage,
+            'url' => route('projects.show', $project->uuid),
+            'address' => [
+                '@type' => 'PostalAddress',
+                'addressLocality' => $project->translate('location'),
+                'addressCountry' => 'SA',
+            ],
+        ];
+    @endphp
+    
+    <x-seo-meta :seoData="$seoData" :canonicalUrl="route('projects.show', $project->uuid)" />
     <!-- Professional Fonts: Cairo for Arabic/English -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -47,6 +89,8 @@
             background: linear-gradient(135deg, #005A58 0%, #004a40 100%);
         }
     </style>
+    
+    <x-structured-data :structuredData="$structuredData" />
 </head>
 <body class="bg-[#f8f7f3]">
 

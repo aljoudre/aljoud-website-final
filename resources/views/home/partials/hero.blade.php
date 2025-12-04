@@ -11,7 +11,7 @@
                 }
             }
         @endphp
-        @if($heroVideo)
+        @if($hero->is_video)
             <video autoplay loop muted playsinline class="active">
                 <source src="{{ $heroVideo }}" type="video/mp4">
             </video>

@@ -1,4 +1,61 @@
-@include('home.includes.head')
+@php
+    $privacyTitle = $privacy ? $privacy->translate('title') : 'سياسة الخصوصية';
+    $privacyDescription = $privacy ? strip_tags(\Filament\Forms\Components\RichEditor\RichContentRenderer::make($privacy->translate('content'))->toHtml()) : 'سياسة الخصوصية لشركة الجود للتطوير والاستثمار العقاري';
+    $privacyDescription = mb_substr($privacyDescription, 0, 160);
+    
+    $seoData = [
+        'title' => $privacyTitle . ' - Aljoud Real Estate',
+        'description' => $privacyDescription,
+        'keywords' => 'سياسة الخصوصية، الجود، عقارات، شركة الجود',
+        'image' => asset('assets/images/logo.png'),
+        'url' => route('privacy'),
+        'type' => 'article',
+    ];
+    
+    $structuredData = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebPage',
+        'name' => $privacyTitle,
+        'description' => $privacyDescription,
+        'url' => route('privacy'),
+    ];
+@endphp
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <x-seo-meta :seoData="$seoData" :canonicalUrl="route('privacy')" />
+    
+    <!-- Professional Fonts: Cairo for Arabic/English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        * {
+            direction: rtl !important;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="{{ asset('css/final_style.css') }}">
+    
+    <x-structured-data :structuredData="$structuredData" />
+</head>
+<body>
 
 @include('home.includes.navbar')
 
