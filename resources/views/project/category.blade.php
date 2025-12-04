@@ -63,6 +63,7 @@
     <div class="max-w-7xl mx-auto px-4 md:px-8">
         @if($projects->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              
                 @foreach($projects as $project)
                     @php
                         $projectImage = asset('assets/images/logo.png');
@@ -73,6 +74,7 @@
                             }
                         } catch (\Exception $e) {}
                     @endphp
+                    
                     <a href="{{ route('projects.show', $project->uuid) }}" class="block">
                         <div class="project-card bg-white rounded-2xl overflow-hidden shadow-lg">
                             <!-- Image -->
@@ -87,7 +89,10 @@
                             
                             <!-- Content -->
                             <div class="p-6">
+                                
                                 <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ $project->translate('name') }}</h3>
+                                <p class="text-s font-bold text-gray-900 mb-2">{{ $projectImage }}</p>
+
                                 <div class="flex items-center text-gray-600 mb-4">
                                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>

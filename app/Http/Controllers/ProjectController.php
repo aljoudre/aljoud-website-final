@@ -6,6 +6,8 @@ use App\Models\Project;
 use App\Models\Translation;
 use App\Models\UiText;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 class ProjectController extends Controller
 {
 
@@ -54,14 +56,14 @@ class ProjectController extends Controller
             }])->where('uuid', $project)->firstOrFail();
             
             // Cache translations and UI texts for better performance
-            $translations = \Illuminate\Support\Facades\Cache::remember('translations', 3600, function() {
+            $translations = Cache::remember('translations', 3600, function() {
                 return Translation::all();
             });
             
             $currentLocale = app()->getLocale();
             $currentLanguage = $translations->where('value', $currentLocale)->first();
             
-            $uiTexts = \Illuminate\Support\Facades\Cache::remember('ui_texts', 3600, function() {
+            $uiTexts = Cache::remember('ui_texts', 3600, function() {
                 return \App\Models\UiText::all()->keyBy('key');
             });
             
@@ -87,14 +89,14 @@ class ProjectController extends Controller
             }])->where('uuid', $project)->firstOrFail();
             
             // Cache translations and UI texts for better performance
-            $translations = \Illuminate\Support\Facades\Cache::remember('translations', 3600, function() {
+            $translations = Cache::remember('translations', 3600, function() {
                 return Translation::all();
             });
             
             $currentLocale = app()->getLocale();
             $currentLanguage = $translations->where('value', $currentLocale)->first();
             
-            $uiTexts = \Illuminate\Support\Facades\Cache::remember('ui_texts', 3600, function() {
+            $uiTexts = Cache::remember('ui_texts', 3600, function() {
                 return \App\Models\UiText::all()->keyBy('key');
             });
             
@@ -105,7 +107,7 @@ class ProjectController extends Controller
                 'uiTexts' => $uiTexts,
             ])->header('Content-Type', 'text/html; charset=utf-8');
         } catch (\Exception $e) {
-            \Illuminate\Support\Facades\Log::error('Project view error: ' . $e->getMessage());
+            Log::error('Project view error: ' . $e->getMessage());
             // abort(404);
             return $e->getMessage();
         }

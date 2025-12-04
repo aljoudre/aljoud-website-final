@@ -26,8 +26,10 @@ Route::get('/set-locale/{locale}', function ($locale) {
 
 
 // Project 
-Route::get('/projects/category/{category}', [ProjectController::class, 'showCategory'])->middleware(Localization::class)->name('projects.category');
-Route::get('/projects/{project}', [ProjectController::class, 'show'])->middleware(Localization::class)->name('projects.show');
+Route::get('/projects/category/{category}', [ProjectController::class, 'showCategory'])
+    ->middleware(Localization::class)->name('projects.category');
+Route::get('/projects/{project}', [ProjectController::class, 'show'])
+    ->middleware(Localization::class)->name('projects.show');
 
 // Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
