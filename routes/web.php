@@ -6,6 +6,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\Localization;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -33,3 +34,8 @@ Route::get('/projects/{project}', [ProjectController::class, 'show'])
 
 // Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+
+Route::get('/test', function () {
+    return DB::table('media')->get();
+});

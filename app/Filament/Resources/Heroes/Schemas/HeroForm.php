@@ -64,6 +64,7 @@ class HeroForm
                             SpatieMediaLibraryFileUpload::make('video')
                             ->collection('video')
                             ->maxFiles(1)
+                            ->disk('public')
                             ->acceptedFileTypes(['video/*'])
                             ->maxSize(102400) // 100 MB in KB
                             ->rules(['required', 'file', 'max:102400']) // Laravel validation

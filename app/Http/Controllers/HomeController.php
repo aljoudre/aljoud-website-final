@@ -45,6 +45,7 @@ class HomeController extends Controller
         $hero = Hero::select('id', 'title', 'subtitle', 'media', 'created_at', 'updated_at')->first();
         $about = About::select('id', 'header', 'content', 'created_at', 'updated_at')->first();
         
+        // return $hero->getMedia();
         // Get latest project from each category for main page display
         $landsAuctionsProject = Project::where('category', 'lands_auctions')
             ->orderBy('created_at', 'desc')

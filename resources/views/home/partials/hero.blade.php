@@ -1,4 +1,49 @@
+
+
 <!-- Hero Section -->
+<section id="home" class="relative flex items-center justify-start">
+    <div class="hero-bg">
+        @php
+            $heroVideo = null;
+            $heroImage = null;
+            if ($hero) {
+                // Try to get the video from 'video' media collection
+                try {
+                    $videoMedia = $hero->getFirstMedia('video');
+                    if ($videoMedia) {
+                        $heroVideo = $videoMedia->getUrl();
+                    }
+                } catch (\Exception $e) {
+                    // Skip if any media library errors
+                }
+                // Fallback: use legacy media attribute for image if found
+                if (!$heroVideo && $hero->media) {
+                    $heroImage = $hero->media;
+                }
+            }
+        @endphp
+        @if($heroVideo)
+            <video autoplay loop muted playsinline class="active" style="object-fit:cover; width:100%; height:100%;">
+                <source src="{{ $heroVideo }}" type="video/mp4">
+                Sorry, your browser doesn't support embedded videos.
+            </video>
+        @elseif($heroImage)
+            <img src="{{ $heroImage }}" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100%; height:100%;">
+        @else
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100%; height:100%;">
+        @endif
+        </div>
+    <div class="relative z-10 max-w-2xl ml-3 md:ml-16 p-4 md:p-8 bg-black/40 backdrop-blur-sm rounded-2xl mx-3 md:mx-0">
+        <h1 class="text-2xl md:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight">{{ $hero && isset($hero->title) ? $hero->translate('title') : 'شريككم نحو تحقيق الأحلام العقارية' }}</h1>
+        <p class="text-base md:text-xl text-gray-200">{{ $hero && isset($hero->subtitle) ? $hero->translate('subtitle') : 'الجود.. رمز الإبداع العقاري والاستثمار الواعد' }}</p>
+    </div>
+
+</section>
+
+
+
+
+{{-- <!-- Hero Section -->
 <section id="home" class="relative flex items-center justify-start">
     <div class="hero-bg">
         @php
@@ -11,7 +56,7 @@
                 }
             }
         @endphp
-        @if($hero->is_video)
+        @if($heroVideo)
             <video autoplay loop muted playsinline class="active">
                 <source src="{{ $heroVideo }}" type="video/mp4">
             </video>
@@ -26,4 +71,4 @@
         <p class="text-base md:text-xl text-gray-200">{{ $hero && isset($hero->subtitle) ? $hero->translate('subtitle') : 'الجود.. رمز الإبداع العقاري والاستثمار الواعد' }}</p>
     </div>
 </section>
-
+ --}}

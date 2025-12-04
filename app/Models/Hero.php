@@ -27,6 +27,15 @@ class Hero extends Model implements HasMedia
     }
 
     /**
+     * Get the disk name for media files.
+     * This ensures all Hero media is stored in public storage.
+     */
+    public function getMediaDiskName(): string
+    {
+        return 'public';
+    }
+
+    /**
      * Register media collections.
      */
     public function registerMediaCollections(): void
