@@ -147,7 +147,7 @@ class ProjectForm
                                         ->disk('public')
                                         ->image()
                                         ->maxFiles(1)
-                                        ->maxSize(1024) // 1MB in KB
+                                        ->maxSize(4024) // 1MB in KB
                                         ->required(fn ($record) => $record === null)
                                         ->label('Main Project Image (Card)')
                                         ->helperText('Required: Used in project cards and listings. Max size: 1MB'),
