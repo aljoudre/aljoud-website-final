@@ -55,8 +55,7 @@ class ContactsTable
                 TextColumn::make('created_at')
                     ->label('تاريخ الإرسال')
                     ->dateTime('Y-m-d H:i')
-                    ->sortable()
-                    ->defaultSort('created_at', 'desc'),
+                    ->sortable(),
                 TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
@@ -87,8 +86,7 @@ class ContactsTable
                                 fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     }),
-            ])
-            ->defaultSort('created_at', 'desc')
+                ])
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),

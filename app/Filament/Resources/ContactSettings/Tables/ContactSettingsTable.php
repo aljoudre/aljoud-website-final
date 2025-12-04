@@ -70,7 +70,6 @@ class ContactSettingsTable
                 EditAction::make(),
                 DeleteAction::make(),
             ])
-            ->defaultSort('updated_at', 'desc')
             ->paginated([10, 25, 50]);
     }
 }
