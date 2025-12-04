@@ -8,9 +8,9 @@
 
 @include('home.partials.about')
 
-@include('home.partials.services')
-
 @include('home.partials.projects')
+
+@include('home.partials.services')
 
 @include('home.partials.contact')
 
