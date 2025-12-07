@@ -42,7 +42,7 @@ class HomeController extends Controller
     public function final()
     {
         // Load models without media relationships to avoid errors
-        $hero = Hero::select('id', 'title', 'subtitle', 'media', 'created_at', 'updated_at')->first();
+        $hero = Hero::select('id', 'title', 'subtitle', 'media_url', 'created_at', 'updated_at')->first();
         $about = About::select('id', 'header', 'content', 'created_at', 'updated_at')->first();
         
         // return $hero->getMedia();
