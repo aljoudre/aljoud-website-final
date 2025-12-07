@@ -40,7 +40,7 @@
             }
         @endphp
 
-        {{-- @if($isVideo ) --}}
+        @if($isVideo )
             <video 
                 autoplay 
                 loop 
@@ -53,11 +53,11 @@
                 <source src="{{ $heroVideo }}" type="video/mp4">
                 Sorry, your browser doesn't support embedded videos.
             </video>
-        {{-- @elseif(!$isVideo && $heroImage)
+        @elseif(!$isVideo && $heroImage)
             <img src="{{ $heroImage }}" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100vw; height:100vh; max-height:700px; display:block;">
         @else
             <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100vw; height:100vh; max-height:700px; display:block;">
-        @endif --}}
+        @endif
     </div>
     <div class="relative z-10 max-w-2xl ml-3 md:ml-16 p-4 md:p-8 bg-black/40 backdrop-blur-sm rounded-2xl mx-3 md:mx-0">
         <h1 class="text-2xl md:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight">{{ $hero && isset($hero->title) ? $hero->translate('title') : 'شريككم نحو تحقيق الأحلام العقارية' }}</h1>

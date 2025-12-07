@@ -40,5 +40,5 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 Route::get('/test', function () {
     // return DB::table('media')->get();
     //  Hero::first()->update(['is_video' => false]);
-    return Hero::first();
+    return Hero::first()->is_video;
 });
