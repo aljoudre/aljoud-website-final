@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\Localization;
+use App\Models\Hero;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -37,5 +38,7 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
 
 
 Route::get('/test', function () {
-    return DB::table('media')->get();
+    // return DB::table('media')->get();
+    //  Hero::first()->update(['is_video' => false]);
+    return Hero::first();
 });

@@ -1,74 +1,67 @@
 
-
 <!-- Hero Section -->
-<section id="home" class="relative flex items-center justify-start">
+<section id="home" class="relative flex items-center justify-start pt-16 md:pt-24">
     <div class="hero-bg">
         @php
             $heroVideo = null;
             $heroImage = null;
+            $isVideo = false;
+
             if ($hero) {
-                // Try to get the video from 'video' media collection
-                try {
-                    $videoMedia = $hero->getFirstMedia('video');
+                // Acceptable is_video values: true, 1, "1", "true"
+                $isVideo = ($hero->is_video === true || $hero->is_video === 1 || $hero->is_video === "1" || $hero->is_video === "true");
+
+                // Always pull the actual media; fallback to media_url if not found
+                $heroMediaUrl = $hero->media_url ?? null;
+
+                if ($isVideo) {
+                    // Try to get video from 'video' collection; fallback to media_url
+                    $videoMedia = null;
+                    try {
+                        $videoMedia = $hero->getFirstMedia('video');
+                    } catch (\Exception $e) {}
                     if ($videoMedia) {
                         $heroVideo = $videoMedia->getUrl();
+                    } elseif ($heroMediaUrl) {
+                        $heroVideo = $heroMediaUrl;
                     }
-                } catch (\Exception $e) {
-                    // Skip if any media library errors
-                }
-                // Fallback: use legacy media attribute for image if found
-                if (!$heroVideo && $hero->media) {
-                    $heroImage = $hero->media;
+                } else {
+                    // Try to get image from 'hero_image' collection; fallback to media_url
+                    $imageMedia = null;
+                    try {
+                        $imageMedia = $hero->getFirstMedia('hero_image');
+                    } catch (\Exception $e) {}
+                    if ($imageMedia) {
+                        $heroImage = $imageMedia->getUrl();
+                    } elseif ($heroMediaUrl) {
+                        $heroImage = $heroMediaUrl;
+                    }
                 }
             }
         @endphp
-        @if($heroVideo)
-            <video autoplay loop muted playsinline class="active" style="object-fit:cover; width:100%; height:100%;">
+
+        {{-- @if($isVideo ) --}}
+            <video 
+                autoplay 
+                loop 
+                muted 
+                playsinline
+                controls
+                class="active"
+                style="width:100vw; height:100vh; max-height:700px; display:block; padding-top:65px;"
+            >
                 <source src="{{ $heroVideo }}" type="video/mp4">
                 Sorry, your browser doesn't support embedded videos.
             </video>
-        @elseif($heroImage)
-            <img src="{{ $heroImage }}" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100%; height:100%;">
+        {{-- @elseif(!$isVideo && $heroImage)
+            <img src="{{ $heroImage }}" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100vw; height:100vh; max-height:700px; display:block;">
         @else
-            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100%; height:100%;">
-        @endif
-        </div>
-    <div class="relative z-10 max-w-2xl ml-3 md:ml-16 p-4 md:p-8 bg-black/40 backdrop-blur-sm rounded-2xl mx-3 md:mx-0">
-        <h1 class="text-2xl md:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight">{{ $hero && isset($hero->title) ? $hero->translate('title') : 'شريككم نحو تحقيق الأحلام العقارية' }}</h1>
-        <p class="text-base md:text-xl text-gray-200">{{ $hero && isset($hero->subtitle) ? $hero->translate('subtitle') : 'الجود.. رمز الإبداع العقاري والاستثمار الواعد' }}</p>
-    </div>
-
-</section>
-
-
-
-
-{{-- <!-- Hero Section -->
-<section id="home" class="relative flex items-center justify-start">
-    <div class="hero-bg">
-        @php
-            $heroVideo = null;
-            $heroImage = null;
-            if ($hero) {
-                // Use media URL field directly to avoid media library issues
-                if ($hero->media) {
-                    $heroImage = $hero->media;
-                }
-            }
-        @endphp
-        @if($heroVideo)
-            <video autoplay loop muted playsinline class="active">
-                <source src="{{ $heroVideo }}" type="video/mp4">
-            </video>
-        @elseif($heroImage)
-            <img src="{{ $heroImage }}" alt="Aljoud Real Estate" class="active">
-        @else
-            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Aljoud Real Estate" class="active">
-        @endif
+            <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80" alt="Aljoud Real Estate" class="active" style="object-fit:cover; width:100vw; height:100vh; max-height:700px; display:block;">
+        @endif --}}
     </div>
     <div class="relative z-10 max-w-2xl ml-3 md:ml-16 p-4 md:p-8 bg-black/40 backdrop-blur-sm rounded-2xl mx-3 md:mx-0">
         <h1 class="text-2xl md:text-6xl font-bold mb-3 md:mb-4 text-white leading-tight">{{ $hero && isset($hero->title) ? $hero->translate('title') : 'شريككم نحو تحقيق الأحلام العقارية' }}</h1>
         <p class="text-base md:text-xl text-gray-200">{{ $hero && isset($hero->subtitle) ? $hero->translate('subtitle') : 'الجود.. رمز الإبداع العقاري والاستثمار الواعد' }}</p>
     </div>
 </section>
- --}}
+
