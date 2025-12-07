@@ -54,7 +54,6 @@ class HeroResource extends Resource
         ];
     }
 
-
       // Prevent creating more than 1 record
       public static function canCreate(): bool
       {

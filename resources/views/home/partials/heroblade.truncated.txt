@@ -3,41 +3,57 @@
 <section id="home" class="relative flex items-center justify-start pt-16 md:pt-24">
     <div class="hero-bg">
 
-        {{-- 
-            Hero record is always passed from the controller, no need to fetch here.
-            Check $hero->is_video to determine whether to display:
-              - Video (from "video" media collection or fallback to $hero->media_url)
-              - Image (from "hero_image" media collection or fallback to $hero->media_url)
-              - If neither available, show default background image.
-        --}}
-
+        {{--  always there will be Hero record  --}}
+        {{-- will check if video or image --}}
+        {{-- if video, will show video --}}
+        {{-- if image, will show image --}}
+        {{-- if no video or image, will show default image via $hero->media_url --}}
         @php
-            $isVideo =  $hero->is_video;
             $heroVideo = null;
             $heroImage = null;
+            $isVideo = false;
 
-            if ($isVideo) {
-                // Prefer video from media collection, else fallback to $hero->media_url
-                $heroVideo = $hero->getFirstMediaUrl('video') ;
-            } else {
-                // Prefer image from media collection, else fallback to $hero->media_url
-                $heroImage = $hero->getFirstMediaUrl('hero_image');
+            // Acceptable is_video values: true, 1, "1", "true"
+            $isVideo = $hero->is_video;
+
+            if ($hero) {
+                // Always pull the actual media; fallback to media_url if not found
+                $heroMediaUrl = $hero->media_url ?? null;
+
+                if ($isVideo) {
+                    
+                    // Try to get video from 'video' collection; fallback to media_url
+                    $videoMedia = null;
+                    try {
+                        $videoMedia = $hero->getFirstMedia('video');
+                    } catch (\Exception $e) {}
+                    if ($videoMedia) {
+                        $heroVideo = $videoMedia->getUrl();
+                    } elseif ($heroMediaUrl) {
+                        $heroVideo = $heroMediaUrl;
+                    }
+                } else {
+                    // Try to get image from 'hero_image' collection; fallback to media_url
+                    $imageMedia = null;
+                    try {
+                        $imageMedia = $hero->getFirstMedia('hero_image');
+                    } catch (\Exception $e) {}
+                    if ($imageMedia) {
+                        $heroImage = $imageMedia->getUrl();
+                    } elseif ($heroMediaUrl) {
+                        $heroImage = $heroMediaUrl;
+                    }
+                }
             }
         @endphp
-{{-- <div style="padding-top: 100px;">
-    <h1> FUCK  {{   $hero->getFirstMediaUrl('video')  }} </h1>
-                <h1>isVideo: {{ $isVideo }}</h1>
-                <h1>heroVideo: {{ $heroVideo }}</h1>
-                <h1>heroImage: {{ $heroImage }}</h1>
-</div> --}}
 
-        @if($isVideo && $heroVideo)
+        @if($isVideo )
             <video 
                 autoplay 
                 loop 
                 muted 
                 playsinline
-                {{-- controls --}}
+                controls
                 class="active"
                 style="width:100vw; height:100vh; max-height:700px; display:block; padding-top:65px;"
             >

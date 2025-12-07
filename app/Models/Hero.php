@@ -11,14 +11,25 @@ class Hero extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $guarded = [];
-    
+
     protected $with = []; // Don't eager load relationships
-    
+
     protected $casts = [
         'title' => 'array',
         'subtitle' => 'array',
+        'is_video' => 'boolean',
     ];
-    
+
+
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (static::count() > 0) {
+                return false; // prevent creating more than one
+            }
+        });
+    }
+
     public function translate(string $field, ?string $locale = null): string
     {
         $locale = $locale ?? app()->getLocale();
